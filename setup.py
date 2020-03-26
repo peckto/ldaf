@@ -8,5 +8,6 @@ setup(name='ldaf',
       author='Tobias Specht',
       author_email='specht.tobias@gmx.de',
       url='https://github.com/peckto/ldaf',
+      packages=['ldaf', 'ldaf.Widgets'],
       install_requires=open('requirements.txt').readlines()
     )
