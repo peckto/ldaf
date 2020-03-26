@@ -1,0 +1,5 @@
+numpy
+pandas
+PyQt5
+matplotlib
+ggplot @ git+git://github.com/peckto/ggpy
