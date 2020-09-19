@@ -67,12 +67,6 @@ class App(QMainWindow, Ui_MainWindow):
         self.tabs: List[Module] = list()
         "Loaded analysis modules as TabWidget"
 
-        self.handler = None
-        'Matplotlib mpl_connect handler'
-
-        self.handler_f = None
-        "Matplotlib picker handler function"
-
         self.load_modules()
         self.settings.add_settings()
 
@@ -90,6 +84,14 @@ class App(QMainWindow, Ui_MainWindow):
 
         for m in self.tabs:
             m.reload()
+
+    def _get_current_module(self) -> Module:
+        return self.tabs[self.tabWidget.currentIndex()]
+
+    def _set_current_module(self, x):
+        raise NotImplemented
+
+    current_module = property(_get_current_module, _set_current_module)
 
     def load_modules(self):
         """Load all analysis modules inside modules_dir

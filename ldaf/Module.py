@@ -82,6 +82,12 @@ class Module(object):
 
         self.menu = None
 
+        self.handler = None
+        'Matplotlib mpl_connect handler'
+
+        self.handler_f = None
+        "Matplotlib picker handler function"
+
         for k, v in self.mod.actions.items():
             if k not in self.window.tableActions.keys():
                 self.window.tableActions[k] = [[self, v[0], v[1]]]
@@ -173,12 +179,11 @@ class Module(object):
             return
 
     def reset_canvas(self):
-        print('reset_canvas: %s' % self.window.handler)
-        if self.window.handler is not None:
-            self.canvas.mpl_disconnect(self.window.handler)
+        if self.handler is not None:
+            self.canvas.mpl_disconnect(self.handler)
 
-        self.window.handler = None
-        self.window.handler_f = None
+        self.handler = None
+        self.handler_f = None
 
     def _plot(self, func):
         """Main plotting function
@@ -221,9 +226,9 @@ class Module(object):
             print('Error: unknown plot element: %r' % gg)
             return
 
-        if self.window.handler_f is not None:
-            c = self.canvas.mpl_connect('pick_event', self.window.handler_f)
-            self.window.handler = c
+        if self.handler_f is not None:
+            c = self.canvas.mpl_connect('pick_event', self.handler_f)
+            self.handler = c
 
         self.table.hide()
         self.tableTitle.hide()
