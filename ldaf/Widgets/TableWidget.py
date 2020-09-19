@@ -38,5 +38,5 @@ class TableWidget(QTableWidget):
                 d[menu.addAction(txt)] = f
             action = menu.exec_(self.mapToGlobal(event.pos()))
             if action in d.keys():
-                self.mod.window.set_setting(header, item)
+                self.mod.window.settings.set_setting(header, item)
                 d[action](item)
