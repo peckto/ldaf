@@ -109,6 +109,10 @@ class App(QMainWindow, Ui_MainWindow):
         :param i: new tab index
         :return:
         """
+        # reset canvas for all modules to clear callbacks
+        for mod in self.tabs:
+            mod.reset_canvas()
+
         self.active_table = self.tabs[i].mod.table
         self.data_source.on_tab_change(i)
 

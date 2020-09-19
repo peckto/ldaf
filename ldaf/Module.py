@@ -114,8 +114,7 @@ class Module(object):
             b.deleteLater()
             del b
 
-        if self.window.handler:
-            self.canvas.mpl_disconnect(self.window.handler)
+        self.reset_canvas()
 
         importlib.reload(self.mod)
         self.funcButtons = list()
@@ -173,6 +172,14 @@ class Module(object):
             self.window.enable()
             return
 
+    def reset_canvas(self):
+        print('reset_canvas: %s' % self.window.handler)
+        if self.window.handler is not None:
+            self.canvas.mpl_disconnect(self.window.handler)
+
+        self.window.handler = None
+        self.window.handler_f = None
+
     def _plot(self, func):
         """Main plotting function
         Supported plots:
@@ -189,11 +196,7 @@ class Module(object):
         self.window.settings.get_settings()
         self.figure.clear()
 
-        if self.window.handler is not None:
-            self.canvas.mpl_disconnect(self.window.handler)
-
-        self.window.handler = None
-        self.window.handler_f = None
+        self.reset_canvas()
 
         gg = func(self.window, fig=self.figure)
         if isinstance(gg, type(None)):
