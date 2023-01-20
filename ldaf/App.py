@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Tobias Specht
+# Copyright (C) 2023 Tobias Specht
 # This file is part of ldaf <https://github.com/peckto/ldaf>.
 #
 # ldaf is free software: you can redistribute it and/or modify
