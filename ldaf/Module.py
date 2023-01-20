@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Tobias Specht
+# Copyright (C) 2023 Tobias Specht
 # This file is part of ldaf <https://github.com/peckto/ldaf>.
 #
 # ldaf is free software: you can redistribute it and/or modify
@@ -29,7 +29,6 @@ import matplotlib.style
 import matplotlib.offsetbox
 
 matplotlib.style.use('ggplot')
-from ggplot import *
 import pandas as pd
 
 from .Widgets.TableWidget import TableWidget
@@ -189,7 +188,6 @@ class Module(object):
         """Main plotting function
         Supported plots:
         * Matplotlib
-        * ggolot
         * pandas DataFrame (as Table)
 
         :param func:
@@ -209,13 +207,7 @@ class Module(object):
             self.window.enable()
             return
 
-        if isinstance(gg, ggplot):
-            gg.fig = self.figure
-            gg.plt = self.figure
-            gg.make()
-            self.figure.set_canvas(self.canvas)
-
-        elif isinstance(gg, pd.DataFrame):
+        if isinstance(gg, pd.DataFrame):
             self.show_table(gg)
             self.window.msg('ready')
             self.window.enable()

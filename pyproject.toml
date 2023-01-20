@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ldaf"
+version = "0.6.0"
+description = "Large Data Analysis Framework"
+authors = ["Tobias Specht <specht.tobias@gmx.de>"]
+license = "GPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^1.24.1"
+pandas = "^1.5.3"
+pyqt5 = "^5.15.7"
+matplotlib = "^3.6.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

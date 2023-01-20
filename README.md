@@ -9,7 +9,7 @@ Exploring Data is often an iterative process which can be slowed down when loadi
 LDAF has been developed to solve this problem by separating the data from the analysis process.
 Data can be loaded once and analysis modules can be loaded/updated dynamically during runtime. 
 
-To visualise data, LDAF supports matplotlib and ggplot.
+To visualise data, LDAF supports matplotlib.
 Figures are printed inside the matplotlib canvas with all its features, including the picker event.
 In this way, interactive applications can be created with little effort.
 
@@ -30,24 +30,6 @@ Custom settings can be added to provide user input for the analysis.
 * View data as table
 
 ## Example
-
-Example analysis function:
-
-```python
-from ggplot import *
-
-def example_1(app: 'App', fig=None):
-    """Example taken from:
-    http://ggplot.yhathq.com/
-
-    """
-    df = app.data_source.get_table('meat')
-
-    g = ggplot(aes(x='date', y='beef'), data=df)
-    g += geom_line()
-
-    return g
-```
 
 For a full example application please see:
 https://github.com/peckto/ldaf-example
@@ -137,14 +119,14 @@ The GUI is based on PyQt5 and has been created with Qt Designer (`Main.ui`).
 
 The GUI has the following main widgets:
 
-Widget | Description
------- | ----
-Menu (File) | Load data and reload modules
-Settings | Custom settings to interact with the modules (`Settings.py`)
-Loaded Tables | Shows statistics about loaded data sets
-Log | Modules log messages
-Statusbar | Shows information about running process
-Analysis | The loaded modules are represented as tabs and the analysis functions can be called via the buttons
+| Widget        | Description                                                                                         |
+|---------------|-----------------------------------------------------------------------------------------------------|
+| Menu (File)   | Load data and reload modules                                                                        |
+| Settings      | Custom settings to interact with the modules (`Settings.py`)                                        |
+| Loaded Tables | Shows statistics about loaded data sets                                                             |
+| Log           | Modules log messages                                                                                |
+| Statusbar     | Shows information about running process                                                             |
+| Analysis      | The loaded modules are represented as tabs and the analysis functions can be called via the buttons |
 
 ## Dependencies
 
@@ -154,9 +136,3 @@ The following python modules are necessary to run LDAF:
 * pandas
 * PyQt5
 * matplotlib
-* ggplot @ git+git://github.com/peckto/ggpy
-
-(See also `requirements.txt`)
-
-A modified version of ggplot is necessary to plot inside specified canvas object.
-To prevent incompatibilities, it is recommended to install LDAF inside a virtual env.
