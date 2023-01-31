@@ -172,6 +172,7 @@ class App(QMainWindow, Ui_MainWindow):
             self.data_source.on_tab_change()
             self.msg('ready')
             self.update_table_stats()
+            self.log('Data loaded')
         except Exception as e:
             self.log(f'Error on load data: {e}')
         self.enable()
