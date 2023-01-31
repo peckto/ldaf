@@ -167,11 +167,14 @@ class App(QMainWindow, Ui_MainWindow):
         """
         self.msg('loading data...')
         self.disable()
-        self.data_source.load_data()
-        self.data_source.on_tab_change()
-        self.msg('ready')
+        try:
+            self.data_source.load_data()
+            self.data_source.on_tab_change()
+            self.msg('ready')
+            self.update_table_stats()
+        except Exception as e:
+            self.log(f'Error on load data: {e}')
         self.enable()
-        self.update_table_stats()
 
     def update_table_stats(self):
         """Update statistics about loaded data tables
