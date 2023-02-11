@@ -16,6 +16,8 @@
 
 import importlib
 import os.path
+
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView
 from PyQt5.Qt import QTextCursor
 import matplotlib
@@ -30,7 +32,16 @@ from .Module import Module
 from .Settings import Settings
 from . import helper
 
-from typing import List
+from typing import List, Optional
+
+
+class Worker(QThread):
+    def __init__(self, func, parent=None):
+        QThread.__init__(self, parent)
+        self.func = func
+
+    def run(self):
+        self.func()
 
 
 class App(QMainWindow, Ui_MainWindow):
@@ -50,6 +61,7 @@ class App(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         settings.app = self
         data_source.app = self
+        self.worker: Optional[Worker] = None
 
         self.tableActions = {}
         "right clock actions for table view"
@@ -167,15 +179,24 @@ class App(QMainWindow, Ui_MainWindow):
         """
         self.msg('loading data...')
         self.disable()
-        try:
-            self.data_source.load_data()
+
+        def worker():
+            try:
+                self.data_source.load_data()
+            except Exception as e:
+                self.log(f'Error on load data: {e}')
+
+        def finished():
             self.data_source.on_tab_change()
-            self.msg('ready')
             self.update_table_stats()
+            self.msg('ready')
             self.log('Data loaded')
-        except Exception as e:
-            self.log(f'Error on load data: {e}')
-        self.enable()
+            self.worker = None
+            self.enable()
+
+        self.worker = Worker(worker)
+        self.worker.finished.connect(finished)
+        self.worker.start()
 
     def update_table_stats(self):
         """Update statistics about loaded data tables
