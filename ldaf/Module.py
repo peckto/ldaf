@@ -204,6 +204,11 @@ class Module(object):
         gg = func(self.window, fig=self.figure)
         if isinstance(gg, type(None)):
             self.window.msg('ready')
+            self.tableTitle.show()
+            self.tableTitle.setText('No Data')
+            self.table.hide()
+            self.toolbar.hide()
+            self.canvas.hide()
             self.window.enable()
             return
 
