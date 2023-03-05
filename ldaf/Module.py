@@ -168,12 +168,11 @@ class Module(object):
             traceback.print_tb(e.__traceback__)
             print(e)
             self.window.msg('Error: %s' % e)
-            self.window.enable()
-            return
-        except BaseException as e:
-            traceback.print_tb(e.__traceback__)
-            print(e)
-            self.window.msg('Error: %s' % e)
+            self.tableTitle.show()
+            self.tableTitle.setText('No Data')
+            self.table.hide()
+            self.toolbar.hide()
+            self.canvas.hide()
             self.window.enable()
             return
 
@@ -198,7 +197,6 @@ class Module(object):
         self.window.disable()
         self.window.settings.get_settings()
         self.figure.clear()
-
         self.reset_canvas()
 
         gg = func(self.window, fig=self.figure)
