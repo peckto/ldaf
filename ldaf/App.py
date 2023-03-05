@@ -170,6 +170,7 @@ class App(QMainWindow, Ui_MainWindow):
         :return:
         """
         self.setEnabled(False)
+        self.app.sendPostedEvents()
         self.app.processEvents()
 
     def on_load_data(self):
